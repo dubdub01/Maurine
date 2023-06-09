@@ -1,0 +1,46 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestion des commentaires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid slide container">
+        <h1>Gestion des commentaires</h1>
+        <a class="btn btn-warning" href="{{path('dashboard')}}">Retour au dashboard</a>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
+        <table class='table' style="width: 100%">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Date</td>
+                    <td>Note</td>
+                    {# <td>Commentaire</td> #}
+                    <td>Recette</td>
+                    <td>Utilisateur</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for comment in comments %}
+                 <tr>
+                    <td>{{comment.id}}</td>
+                    <td>{{comment.date | date("m/d/Y")}}</td>
+                    <td>{{comment.note}}</td>
+                    {# <td>{{comment.content}}</td> #}
+                    <td>{{comment.idRecipe.title}}</td>
+                    <td>{{comment.idRecipe.idUser.pseudo}}</td>
+                    <td>
+                        <a href="{{path('admin_delete_comment',{'id':comment.id})}}" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

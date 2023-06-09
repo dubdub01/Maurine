@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestion des recettes{% endblock %}
+
+{% block body %}
+    <div class="container-fluid slide container">
+        <h1>Gestion des recettes</h1>
+        <a class="btn btn-warning" href="{{path('dashboard')}}">Retour au dashboard</a>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
+        <table class='table' style="width: 100%">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Category</td>
+                    <td>Titre</td>
+                    <td>Auteur</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for recette in recettes %}
+                 <tr>
+                    <td>{{recette.id}}</td>
+                    <td>{{recette.category}}</td>
+                    <td>{{recette.title}}</td>
+                    <td>{{recette.idUser.pseudo}}</td>
+                    <td>
+                        <a class="btn btn-success" href="{{path('edit_recipe',{'slug':recette.slug})}}">Modifier</a>
+                        <a class="btn btn-danger"  href="{{path('delete_recipe',{'slug':recette.slug})}}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

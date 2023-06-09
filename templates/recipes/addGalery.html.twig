@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{# Page du formulaire de l'ajout d'un véhicule au showroom (formulaire) #}
+{% block title %}Ajout d'une photo' {% endblock %}
+
+{# {% form_theme myform _self %} #}
+{# plus besoin de cette ligne car j'ai initié par défaut le style des formulaires #}
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="container slide ">
+        <h1 style="margin-bottom: 50px; margin-top: 30px; text-align:center;">Ajout de ton résultat à la galerie</h1>
+        <p style="text-align:center;"><b>Tu as testé la recette "{{recipe.title}}", poste ton résultat !</b></p>
+       
+            <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid" style="width: 200px">
+        
+        <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour au carnet de recettes</button></a>
+        {{form_start(myform)}}
+            <div class="container" style="background-color:  rgba(255, 170, 22, 0.1); padding: 20px; border-radius: 20px;">
+                <div>
+                    
+                    {{form_widget(myform)}}
+
+                </div>
+                <button type="submit" class="btn btn-warning mt-3"><i class="fa-solid fa-check"></i> Ajouter ma photo</button>
+            </div>
+            
+        {{form_end(myform)}}
+    </div>
+{% endblock %}
+
+
+

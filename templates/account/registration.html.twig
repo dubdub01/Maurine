@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
+{# Page qui affiche le formulaire de connexion au site  #}
+{% block body %}
+    <div class="slide container full">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 bg-light p-3">
+                <h1>Inscription au site </h1>
+               
+                {{form_start(myform)}}
+                    {{form_widget(myform)}}
+                    <input type="submit" class="btn btn-warning" value="Confirmer mon inscription">
+                {{form_end(myform)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}

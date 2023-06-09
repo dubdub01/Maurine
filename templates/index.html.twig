@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block body %}
+    
+
+    <div class="slide container-fluid " id="home">
+        <div id="txt-header">
+            <h1 ><i class="fa-solid fa-martini-glass-citrus"></i> Drink <b>Tea'</b>m</h1>
+            <br><p>Le rendez-vous des amateurs de boissons maisons !</p>
+        </div>
+        
+    </div>
+    
+
+        {% include "partials/_filter.html.twig" %}
+ 
+        <div class="container">
+            <h3 class="orange">Nos dernières pépites </h3>
+            <div class="row d-flex justify-content-md-around">
+            {% for data in recipes %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+            {% endfor %}
+            
+            </div>
+            <div class="row ">
+                <a class="col-md-4 ml-auto my-4" href="{{path('recettes_index')}}"><button class="btn btn-warning">Voir plus de recettes <i class="fa-solid fa-arrow-right"></i></button></a>
+            </div>
+             
+        </div>
+
+        <div class="card-orange my-3 mt-4">
+        <div class="container">
+            <h4 class="orange"> Des recettes, du partage, du bonheur !</h4>
+            <p>Chez Drink Tea'm, partageons exclusivement nos recettes de boissons, des eaux parfumées aux coktails alcoolisés en passant par les cafés et les thés, boissons chaudes ou boissons froides. Peu importe qu'elles soient alcooliées ou non, les boissons sont symboles de partage alors allez-y amusez-vous ! 
+            </p>
+        
+        </div>
+        </div>
+
+        <div class="container">
+            <h3 class="orange">Le top 3 du moment</h3>
+            <div class="row d-flex justify-content-md-around">
+                {% for data in  bestRecipes %}
+                     {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+                {% endfor %}
+               
+            </div>
+        </div>
+
+
+        <div class="card-orange my-5">
+            <div class="container">
+                <h4 class="orange"> Le Drink Tea'm mag</h4>
+                    <p>Chez Drink Tea'm, nous sommes convaincus que cuisiner et partager rend heureux et que le fait maison peut changer les vies.
+                    C&nbsp;'est pour cela que nous sommes là pour vous accompagner au quotidien et pour vous permettre d´explorer le bonheur de cuisiner quelque soit votre niveau, votre temps, votre budget ou votre motivation.
+                    </p>
+            </div>
+           
+        </div>
+    
+{% endblock %}
+
+

@@ -1,0 +1,315 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Titre de la recette{% endblock %}
+
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+<div class="slide container">
+<a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3"><i class="fa-solid fa-arrow-left"></i> Retour aux recettes</button></a>
+
+    {% if app.user %}
+        {% if recipe.idUser.id == app.user.id or app.user.roles[0] == "ROLE_ADMIN" %}
+            <a class="btn btn-success m-3" href="{{path('edit_recipe',{'slug':recipe.slug})}}"><i class="fa-solid fa-pen-to-square"></i> Editer la recette</button></a>
+            <a href="{{path('delete_recipe',{"slug": recipe.slug})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i> Supprimer la recette</a>
+        {% endif %}
+    {% endif %}
+    
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-md picture">
+            <img src="../uploads/{{recipe.image}}" alt="" class="card-img img-fluid">
+        </div>
+        <div class="col-md">
+            <h1>{{recipe.title}}</h1> 
+             <i class="fa-solid fa-heart"></i> {{recipe.likes | length}}
+            <div class="note">
+                {% if recipe.avgRatings == 0 %}
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 1 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 2 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 3 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 4 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 5 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                {% endif %}
+            </div>
+            <p>par <i><a href="{{path('recipes_of',{'id': recipe.idUser.id})}}" class="link-warning">{{recipe.idUser.pseudo}}</a></i></p>
+            <div class="card-orange infos">
+                <div class="col-12">
+                    <p><span class="mdi mdi-clock-check-outline"></span> Durée de préparation: {{recipe.time}} min</p>
+                        {# gestion level #}
+                </div>
+                <div class="col-12 d-flex">
+                    <p><span class="mdi mdi-star"></span>Niveau de la recette: </p>
+                        {% if recipe.level == "Facile" %}
+                            <p><span class="mdi mdi-star-outline"></span></p>
+                        {% endif %}
+                        {% if recipe.level == "Moyen" %}
+                            <p><i class="fa-solid fa-star-half-stroke"></i></p>
+                        {% endif %}
+                        {% if recipe.level == "Difficile" %}
+                            <p><span class="mdi mdi-star"></span></p>
+                        {% endif %}
+                </div>
+                <div class="col-12 d-flex">
+                    <p><span class="mdi mdi-currency-eur"> Budget : </p>
+                        {% if recipe.budget == "Faible" %}
+                            <p><span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                        {% if recipe.budget == "Moyen" %}
+                            <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                        {% if recipe.budget == "Coûteux" %}
+                            <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+                        {% endif %}
+                </div>
+                   
+                    
+            </div>
+            <div class="card p-3 my-4">
+                <h4>Ingrédients:</h4>
+                <p>{{recipe.ingredient|nl2br}}</p>
+            </div>
+            
+        </div>
+    </div>
+    
+    
+    <div class="card p-3 my-3">
+        
+        <h4>Préparation : </h4>
+        <p>{{recipe.steps|nl2br}}</p>
+    </div>
+   
+   <hr>
+
+    <div class="container">
+        <h4 class="text-warning">Ils ont aussi essayé la recette...</h4>
+
+        {# <div class="container-galery">
+            <div class="carte-galery">
+            <img  src="../../uploads/{{recipe.image}}" alt="image du test">
+            </div>
+            {% if recipe.galeries | length>0 %}
+                {% for galery in recipe.galeries %}
+                    <div class="carte-galery">
+                        {% if app.user %}
+                            {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"%}
+                                <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger m-3"><i class="fa-solid fa-trash"></i></a>    
+                            {% endif %}
+                        {% endif %}
+                       <img  src="../../uploads/{{galery.picture}}" alt="image du test">
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div> #}
+      
+      {% if recipe.galeries | length > 0 %}
+        <div id="carouselExampleCaptions" class="carousel"  data-bs-ride="false">
+            <div class="carousel-indicators">
+            {% for galery in recipe.galeries %}
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{loop.index0}}" {% if loop.first %} class="active" aria-current="true" {% endif %} aria-label="Slide {{loop.index}}"></button>
+            {% endfor %} 
+            
+            </div>
+            <div class="carousel-inner">
+                {% for galery in recipe.galeries %}
+                
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        {% if app.user %}
+                            {% if app.user == galery.author or app.user.roles[0] == "ROLE_ADMIN"%}
+                                <a href="{{path('delete_galery',{'id': galery.id})}}" class="btn btn-danger mx-3 my-3" style="z-index:500; position:absolute"><i class="fa-solid fa-trash"></i></a>    
+                            {% endif %}
+                        {% endif %}
+                        <img src="../uploads/{{galery.picture}}" class="d-block w-100" alt="image de {{recipe.title}}" >
+                        
+                    </div>
+                    
+                {% endfor %}
+            
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        {% endif %}
+
+        {% if recipe.galeries | length == 0 %}
+            <p><b>Sois le premier à partager ton résultat !</b></p>
+        {% endif %}
+        <p>Tu as testé la recette ? Connecte-toi et poste la photo du résultat !</p>
+        
+        {% if app.user %}
+        <a href="{{path('galery_recipe',{"slug": recipe.slug})}}"><button class="btn btn-success" type="submit"><i class="fa-solid fa-check"></i> Poster la photo de ma recette</button></a>
+        {% else %}
+             <a href="{{path('register')}}"><button class="btn btn-warning ">Je veux m'inscrire</button><a/>
+            <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
+        {% endif %}
+    
+
+       <hr> 
+    </div>
+
+   <div class="container">
+        <h3 class="orange">Commentaires des utilisateurs</h3>
+        {% if recipe.comments | length>0 %}
+            {% for comment in recipe.comments %}
+                <div class="card p-3 my-2">
+                    <div class="row">
+                        <div class="col-md-2">
+                            {% if comment.idUser.avatar %}
+                                <img src="../uploads/{{comment.idUser.avatar}}" class="avatar" alt="Avatar de {{comment.idUser.pseudo}}">
+                            {% else %}
+                                <img src="../images/userPicture.png" class="avatar" alt="Avatar de {{comment.idUser.pseudo}}">
+                            {% endif %}
+                           
+                            <h6><b>{{comment.idUser.pseudo}}</b></h6>
+                            <p>Note : 
+                            {% if comment.note == 0 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 1 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 2 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 3 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 4 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle opacity"></span>
+                                </div>
+                            {% endif %}
+                            {% if comment.note == 5 %}
+                                 <div class="note">
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                    <span class="mdi mdi-star-circle "></span>
+                                </div>
+                            {% endif %}
+                            </p>
+
+                            
+                        </div>
+                        <div class="col-10">
+                            <p> Commentaire: <br>{{comment.content}}</p>
+                            {% if app.user %}
+                                {% if app.user.id == comment.idUser.id  %}
+                                    <a class="btn btn-success" href="{{path('edit_comment',{'id':comment.id})}}">Modifier</a>
+                                {% endif %}
+                                {% if app.user.id == comment.idUser.id or app.user.roles[0] == "ROLE_ADMIN" %}
+                                    <a href="{{path('delete_comment',{"id":comment.id})}}" class="btn btn-danger">Supprimer</a>
+                                {% endif %}
+                            {% endif %}
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            {% endfor %}
+            
+        {% else %}
+            <div>
+                <p>Il n'y a pas encore de commentaires pour cette recette !</p>
+                <p><b>Sois le premier à donner ton avis  !</b></p>
+                 
+            </div>
+        {% endif %}
+        {% if app.user %}
+        <div class="my-4">
+            <p><b>Donne ton avis sur la recette...</b></p>
+            {{form_start(myform)}}
+                {{form_widget(myform)}}
+                </div>
+                <button type="submit" class="btn btn-warning mt-3"><i class="fa-solid fa-check"></i> Ajouter mon commentaire</button>
+            {{form_end(myform)}}
+        </div>
+        {% else %}
+            
+            <p>Inscris-toi ou connecte toi ! 
+                <a href="{{path('register')}}"><button class="btn btn-warning ">Je veux m'inscrire</button><a/>
+                <a href="{{path('account_login')}}"><button class="btn btn-success mx-2">Je me connecte</button></a>
+            </p>
+        {% endif %}
+        
+        </div>
+    </div>
+{% endblock %}
+

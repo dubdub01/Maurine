@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block body %}
+
+<div class="slide container-fluid" id="recipes">
+   
+    
+    <div class="container my-3">
+    <h1 class="orange">Carnet de recettes</h1>
+        <a href="{{path('home')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</button>
+        </a><br>
+        <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour au carnet</button>
+            
+        </a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% include "partials/_filter.html.twig" %}
+    </div>
+
+    <div class="container">
+        <h2 class="orange">Catégorie : {{app.request.get('category') | capitalize}}s </h2>
+        <div class="row d-flex justify-content-md-around">
+        {% if recettes is not empty %}
+            {% for data in recettes %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+            {% endfor %}
+        {% else %}
+            <h3>Il n'y a pas de recettes pour cette catégorie</h3>
+        {% endif %}
+            
+        </div>
+         
+       
+        
+    </div>
+    
+
+</div>
+
+{% endblock %}

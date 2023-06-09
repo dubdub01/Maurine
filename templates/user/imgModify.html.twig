@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Modifier l'avatar{% endblock %}
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    <div class="slide container">
+        <h1>Modification de l'avatar de {{app.user.pseudo}}</h1>
+        {% if app.user.avatar %}
+            <img style="max-height: 150px" src="../../uploads/{{app.user.avatar}}" alt="avatar de {{app.user.pseudo}}">
+        {% else %}
+            <img  style="max-height: 150px" src="../../images/userPicture.png" alt="avatar de {{app.user.pseudo}}">
+        {% endif %}
+        
+        {{form_start(myform)}}
+            {{form_widget(myform)}}
+            <button type="submit" class="btn btn-warning">Confirmez la modification de l'avatar</button>
+        {{form_end(myform)}}
+    </div>
+{% endblock %}

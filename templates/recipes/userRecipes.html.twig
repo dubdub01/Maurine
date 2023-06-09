@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block body %}
+
+<div class="slide container-fluid" id="recipes">
+   
+    
+    <div class="container my-3">
+    <h1 class="orange">Carnet de recettes</h1>
+        <a href="{{path('home')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</button>
+        </a>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% include "partials/_filter.html.twig" %}
+    </div>
+
+    <div class="container">
+        <h2 class="orange">Recettes de l'utilisateur: {{app.request.get('id') | capitalize}} </h2>
+        <div class="row d-flex justify-content-md-around">
+           {% for data in recettes %}
+               {% include "recipes/_recipecardNote.html.twig" with {'recipe': data.recipe} %}
+            {% endfor %} 
+        </div>
+    </div>
+    
+
+</div>
+
+{% endblock %}

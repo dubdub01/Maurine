@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes{% endblock %}
+
+{% block body %}
+
+<div class="slide container-fluid" id="recipes">
+   
+    
+    <div class="container my-3">
+        <a href="{{path('home')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil</button>
+        </a><br>
+        <a href="{{path('recettes_index')}}"><button class="btn btn-warning m-3">
+            <i class="fa-solid fa-arrow-left"></i> Retour au carnet</button>
+            
+        </a>
+        <h1 class="orange">Carnet de recettes</h1>
+        
+        {{form_start(search)}}
+     
+        {{form_end(search)}}
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+         {% include "partials/_filter.html.twig" %}
+    </div>
+
+    <div class="container">
+        <h2 class="orange">Votre recherche: {{criteria}} </h2>
+        <div class="row d-flex justify-content-md-around">
+        {% if recipes is not empty %}
+            {% for recipe in recipes %}
+                {% include "recipes/_recipeCard.html.twig" %}
+            {% endfor %}
+        {% else %}
+            <h3>Il n'y a pas de résultats pour votre recherche : <i> {{criteria}}</i></h3>
+        {% endif %}
+           
+            
+            
+        </div>
+        
+       
+        
+    </div>
+    
+
+</div>
+
+{% endblock %}

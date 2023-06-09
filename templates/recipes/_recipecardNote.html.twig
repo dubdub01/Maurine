@@ -1,0 +1,139 @@
+<div class="col-md-4">
+<div class="card mt-3">
+   
+   {% if app.user %}
+        {% if recipe.likes | length==0 %}
+            <a href="{{path('like', {'id': recipe.id})}}">
+                <div class="like">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+            </a>
+        {% else %}
+            {% for like in recipe.likes %}
+                {% if like.user.id == app.user.id%}
+                    <a href="{{path('unlike', {'id': like.id})}}">
+                        <div class="like">
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                    </a>
+                {% else %}
+                    <a href="{{path('like', {'id': recipe.id})}}">
+                        <div class="like">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+    {% endif %}
+
+
+    {# {% if app.user %}
+        {% if recipe.likes | length==0 %}
+           
+                <div class="like like-button" data-recipe-id="{{ recipe.id }}">
+                    <i class="fa-regular fa-heart"></i>
+                </div>
+            
+        {% else %}
+            {% for like in recipe.likes %}
+                {% if like.user.id == app.user.id%}
+                    <div class="like like-button" data-recipe-id="{{ recipe.id }}">
+                    <i class="fa-solid fa-heart"></i>
+                    </div>
+                {% else %}
+                    <div class="like like-button" data-recipe-id="{{ recipe.id }}">
+                    <i class="fa-regular fa-heart"></i>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+    {% endif %} #}
+   
+    <div class="divimg" style="width:100%;height: 250px; overflow:hidden">
+        <img src="../uploads/{{recipe.image}}" class="card-img img-fluid test" alt="recette de {{recipe.title}}" >
+    </div>
+    <div class="card-body">
+        <div class="category">{{recipe.category}}</div>
+        <div class="galeries">{{recipe.galeries | length+1}} <i class="fa-solid fa-images"></i></div>
+        <div class="card-title">
+            <b>{{recipe.title}}</b> <br>
+             <i class="fa-solid fa-heart"></i> {{recipe.likes | length}}
+        </div>
+        <div class="note">
+            
+            {% if recipe.avgRatings == 0 %}
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 1 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 2 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 3 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 4 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle opacity"></span>
+                {% endif %}
+                {% if recipe.avgRatings == 5 %}
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                    <span class="mdi mdi-star-circle "></span>
+                {% endif %}
+                ({{recipe.comments | length}})
+        </div>
+        
+        <div class="card-text">
+            <p><span class="mdi mdi-clock-check-outline"></span> {{recipe.time}} min</p>
+        {# gestion level #}
+            {% if recipe.level == "Facile" %}
+                <p><span class="mdi mdi-star-outline"></span></p>
+            {% endif %}
+            {% if recipe.level == "Moyen" %}
+                <p><i class="fa-solid fa-star-half-stroke"></i></p>
+            {% endif %}
+            {% if recipe.level == "Difficile" %}
+                <p><span class="mdi mdi-star"></span></p>
+            {% endif %}
+        {# gestion budget #}
+            {% if recipe.budget == "Faible" %}
+                <p><span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            {% if recipe.budget == "Moyen" %}
+                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            {% if recipe.budget == "Coûteux" %}
+                <p><span class="mdi mdi-currency-eur"></span> <span class="mdi mdi-currency-eur"></span><span class="mdi mdi-currency-eur"></span></p>
+            {% endif %}
+            
+        </div>
+        <a href="{{path('show_recipe', {"slug": recipe.slug})}}" class="btn btn-warning"><i class="fa-sharp fa-solid fa-eye"></i> Voir la recette</a>
+    </div>
+</div>
+</div>

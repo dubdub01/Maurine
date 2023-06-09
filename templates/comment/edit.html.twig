@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edition du commentaire {% endblock %}
+
+{% form_theme myform 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {% include "partials/header.html.twig" %}
+   
+    <div class="container slide ">
+     <h3>Modifie ton commentaire </h3>
+     <p>sur la recette de : {{recipe.title}}</p>
+    {{form_start(myform)}}
+     {{form_widget(myform)}}
+     <button type="submit" class="btn btn-warning mt-3"><i class="fa-solid fa-check"></i> Modifier mon commentaire</button>
+    {{form_end(myform)}}
+    </div>
+{% endblock %}

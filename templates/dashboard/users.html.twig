@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+    <div class="container-fluid slide container">
+        <h1>Gestion des utilisateurs</h1>
+        <a class="btn btn-warning" href="{{path('dashboard')}}">Retour au dashboard</a>
+        
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class='table' style="width: 100%">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Pseudo</td>
+                    <td>Rôles</td>
+                    <td>Email</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                 <tr>
+                    <td>{{user.id}}</td>
+                    <td>{{user.pseudo}}</td>
+                    <td>{{user.roles[0]}} </td>
+                    <td>{{user.email}}</td>
+                    <td>
+                        {% if user.pseudo != "Anonyme"  %}
+                        <a class="btn btn-success">Modifier</a>
+                        {% endif %}
+                        {% if user.id > 1  %}
+                        <a href="{{path('profile_delete',{'id':user.id})}}" class="btn btn-danger">Supprimer</a>
+                        {% endif %}
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+               
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

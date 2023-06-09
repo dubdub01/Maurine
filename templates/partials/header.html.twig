@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-lg bg-light" id="main" >
+ 
+  <div class="container-fluid">
+  <i class="fa-sharp fa-regular fa-glass"></i>
+        <a class="navbar-brand text-warning" href="{{path('home')}}"><i class="fa-solid fa-martini-glass-citrus"></i> Drink Tea'm</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{path('home')}}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('recettes_index')}}">Les recettes</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-user"></i>
+          </a>
+          <ul class="dropdown-menu">
+            {% if app.user %}
+              <li><a class="dropdown-item" href="{{path('new_recipe')}}">Publier une recette</a></li>
+              <li><a class="dropdown-item" href="{{path('profile')}}">Mon profil</a></li>
+              <li><a class="dropdown-item" href="{{path('profile_like')}}">Mes likes</a></li>
+              {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                <li><a class="dropdown-item" href="{{path('dashboard')}}">ADMINISTRATION</a></li>
+              {% endif %}
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{path('account_logout')}}">Déconnexion</a></li>
+            {% else %}
+              <li><a class="dropdown-item" href="{{path('account_login')}}">Connexion</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="{{path('register')}}">Pas encore de compte ?</a></li>
+            {% endif %}
+            
+           
+            
+            
+          </ul>
+        </li>
+      </ul>
+      {# <form class="d-flex" role="search">
+        <div class="input-group mb-3 mx-4">
+            <span class="input-group-text p-3 rounded rounded-left border border-warning" id="basic-addon2">Je cherche </span>
+            <input id="search" type="text" class="form-control outline-success border-warning border rounded-right" placeholder=" une recette..." aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <button class="btn btn-warning" type="submit">OK</button> 
+
+           
+           
+        </div>
+       
+      </form> #}
+      
+
+      
+    </div>
+  </div>
+
+</nav>

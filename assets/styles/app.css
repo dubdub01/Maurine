@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+*{
+    margin:0;
+    padding: 0;
+}
+.cookiesSlide{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    background-color: rgb(245, 226, 196);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.btncookie{
+    height: 20px !important;
+}
+body {
+    background-color: lightgray;
+    font-family: 'Outfit', sans-serif !important;
+}
+nav#main{
+    position: fixed !important;
+    width: 100%;
+    color: white;
+    z-index: 100;
+}
+nav span, #search{
+    height: 25px;
+}
+nav span{
+    border-radius: 20px ;
+}
+.fa-user{
+    color: #FF9800 !important;
+    font-size: 24px; 
+}
+.fa-glass{
+    font-size: 24px;
+    color: #FF9800 !important;
+    width: 50px;
+    height: 50px;
+}
+form[name="search"] {
+   display: flex;
+   margin-bottom: 20px;
+}
+form[name="search"] :nth-child(1){
+    padding: 5px;
+}
+#search_search{
+    width: 200px;
+}
+
+.btn-warning{
+    min-height: 40px;
+    padding: 10px !important;
+    text-transform: none !important;
+    line-height: 20px !important;
+}
+.btn-danger{
+    min-height: 40px;
+    padding: 10px !important;
+    text-transform: none !important;
+    line-height: 20px !important;
+}
+.btn{
+    min-height: 40px;
+    padding: 10px !important;
+    text-transform: none !important;
+    line-height: 20px !important;
+}
+.d-flex{
+    margin-top: 20px;
+}
+a:hover{
+    color: #FF9800;
+}
+.slide{
+    padding-top: 150px;
+}
+.slidefill{
+    padding-top: 150px;
+    min-height: 80vh;
+}
+.orange{
+    color: #FF9800;
+}
+.card-orange{
+    background-color:#ff990046;
+    padding: 30px;
+    border-radius: 15px;
+
+}
+.card-text{
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+}
+.card-body{
+    text-align: center;
+}
+.card-body a{
+    width: 100%;
+}
+.divimg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    
+}
+.divimg img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#home{
+    background-image: url(/public/images/mike-kenneally-x0t6DiAg118-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    min-height: 60vh;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+#home h1{
+    font-size: 4rem;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+#home p{
+    width: 100%;
+    text-align: center;
+    font-size: 18pt;
+    margin-top: -40px;
+}
+#txt-header{
+    text-align: center;
+    width: 100%;
+    
+}
+.categories{
+    background-color: #ff990017 !important;
+    border: none;
+    box-shadow: none !important;
+}
+.drink{
+    background-color: white !important;
+    padding-top: 20px !important;
+    color: #FF9800 !important;
+    text-align: center;
+    transition: all 1.5s;
+    display: flex;
+    align-items: center;
+}
+.drink:hover{
+    background-color: #FF9800 !important;
+    color: white !important;
+}
+
+.drink a{
+    color:#FF9800;
+    text-decoration: none;
+}
+.drink p{
+    margin-top: 10px;
+}
+.drinkIcon{
+    font-size: 20pt;
+}
+
+
+.like{
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: red;
+    font-size: 16pt;
+    line-height: 40px;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.category{
+    position: absolute;
+    margin-top: -55px;
+    z-index: 10;
+    background-color: rgba(53, 53, 53, 0.784);
+    color: white;
+    padding: 1px 10px 1px 10px;
+    border-radius: 20px;
+}
+.galeries{
+    position: absolute;
+    width: 60px;
+    font-size: 12pt;
+    margin-top: -250px;
+    z-index: 10;
+    background-color: rgba(53, 53, 53, 0.784);
+    color: white;
+    padding: 1px 10px 1px 10px;
+    border-radius: 20px;
+    margin-right: 100px;
+}
+.opacity{
+    opacity: 0.3;
+}
+
+/* Recettes ***************** */
+
+#recipes{
+    min-height: 100vh;
+}
+
+/* Recette solo */
+.infos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.picture{
+    display: flex;
+    align-items: center;
+}
+.avatar{
+    width: 50px;
+    height: 50px;
+}
+.container-galery{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.carte-galery{
+    width: 300px !important;
+    height: 200px !important;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.carte-galery img{
+    width: 400px;
+}
+
+.carte-galery a{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+.carousel{
+    width: 60%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 40vh; 
+    overflow:hidden
+}
+@media all and (max-width:950px){
+    .carousel{
+        width: 100%;
+    }
+}
+
+/* Footer ****** */
+
+footer{
+    padding: 0;
+    height: 120px;
+    margin-bottom: -20px;
+}
+.footer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.footer nav ul{
+    display: flex;
+   
+}
+.footer nav ul li{
+    padding: 10px;
+    text-decoration: none;
+    list-style: none;
+    height: 100%;
+    line-height: 40px;
+}
+.footer nav ul li a{
+    text-decoration: underline;
+    color: white;
+
+}
